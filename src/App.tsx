@@ -1,7 +1,11 @@
 
-const App = () => {
+import MainLayout from './layouts/MainLayout'
+
+function App() {
   return (
-    <h1 className="text-orange-500">Hello World</h1>
+    <div>
+      <MainLayout />
+    </div>
   )
 }
 
