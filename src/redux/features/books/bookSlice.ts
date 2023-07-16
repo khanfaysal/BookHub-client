@@ -13,6 +13,8 @@ interface BookState {
   searchQuery: string;
   genreFilter: string;
   yearFilter: string;
+  genres: string[]; // Add genres property
+  years: string[]; // Add years property
 }
 
 const initialState: BookState = {
@@ -20,6 +22,8 @@ const initialState: BookState = {
   searchQuery: '',
   genreFilter: '',
   yearFilter: '',
+  genres: [], // Initialize genres as an empty array
+  years: [], // Initialize years as an empty array
 };
 
 const bookSlice = createSlice({
@@ -35,73 +39,20 @@ const bookSlice = createSlice({
     setYearFilter: (state, action: PayloadAction<string>) => {
       state.yearFilter = action.payload;
     },
+    setGenres: (state, action: PayloadAction<string[]>) => {
+      state.genres = action.payload;
+    },
+    setYears: (state, action: PayloadAction<string[]>) => {
+      state.years = action.payload;
+    },
   },
 });
 
-export const { setSearchQuery, setGenreFilter, setYearFilter } = bookSlice.actions;
+export const {
+  setSearchQuery,
+  setGenreFilter,
+  setYearFilter,
+  setGenres,
+  setYears,
+} = bookSlice.actions;
 export default bookSlice.reducer;
-
-
-// test
-// import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-// import { RootState } from '../../store';
-// import { useGetBooksQuery } from './bookApi';
-
-// interface BookState {
-//   books: Book[];
-//   isLoading: boolean;
-//   error: string | null | undefined;
-// }
-
-// interface Book {
-//   title: string;
-//   author: string;
-//   genre: string;
-//   publicationDate: string;
-//   reviews: string[];
-// }
-
-// const initialState: BookState = {
-//   books: [],
-//   isLoading: false,
-//   error: null,
-// };
-
-// export const fetchBooksAsync = createAsyncThunk<Book[], void, { state: RootState }>(
-//   'book/fetchBooks',
-//   async () => {
-//     // eslint-disable-next-line @typescript-eslint/await-thenable
-//     const response = await useGetBooksQuery({});
-
-//     if (response.error) {
-//       throw new Error('Failed to fetch books');
-//     }
-
-//     return response.data as Book[]; // Specify the return type as Book[]
-//   }
-// );
-
-// const bookSlice = createSlice({
-//   name: 'book',
-//   initialState,
-//   reducers: {},
-//   extraReducers: (builder) => {
-//     builder
-//       .addCase(fetchBooksAsync.pending, (state) => {
-//         state.isLoading = true;
-//         state.error = null;
-//       })
-//       .addCase(fetchBooksAsync.fulfilled, (state, action) => {
-//         state.books = action.payload;
-//         state.isLoading = false;
-//         state.error = null;
-//       })
-//       .addCase(fetchBooksAsync.rejected, (state, action) => {
-//         state.isLoading = false;
-//         state.error = action.error.message;
-//       });
-//   },
-// });
-
-// export default bookSlice.reducer;
-
