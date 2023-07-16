@@ -13,7 +13,7 @@ function Navbar() {
 
   return (
     <header className="text-gray-600 body-font bg-[#dddcfb]">
-      <div className="container mx-auto flex flex-wrap items-center justify-between p-5">
+      <div className="container mx-auto flex flex-wrap items-center justify-between py-5">
         <div className="flex items-center flex-shrink-0 text-gray-800">
         <Link to="/">
                 <img className="h-10" src={logo} alt="log" />

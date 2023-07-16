@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+
 import logo from "../assets/logo-no-bg.svg";
 
 function Footer() {
   return (
  
         <footer className="text-gray-600 body-font">
-  <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+  <div className="container py-8 mx-auto flex items-center sm:flex-row flex-col">
   <img className="h-10" src={logo} alt="log" />
     
     <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2023 BookHub —
