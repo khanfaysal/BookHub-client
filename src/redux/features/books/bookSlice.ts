@@ -6,30 +6,37 @@ interface Book {
   genre: string;
   publicationDate: string;
   reviews: string[];
+  updatedAt: string;
 }
 
 interface BookState {
   books: Book[];
+  lastUpdatedBooks: Book[];
   searchQuery: string;
   genreFilter: string;
   yearFilter: string;
-  genres: string[]; // Add genres property
-  years: string[]; // Add years property
+  genres: string[]; 
+  years: string[]; 
 }
 
 const initialState: BookState = {
   books: [],
+  lastUpdatedBooks: [],
   searchQuery: '',
   genreFilter: '',
   yearFilter: '',
-  genres: [], // Initialize genres as an empty array
-  years: [], // Initialize years as an empty array
+  genres: [], 
+  years: [], 
 };
 
 const bookSlice = createSlice({
   name: 'book',
   initialState,
   reducers: {
+    setLastUpdatedBooks: (state, action: PayloadAction<Book[]>) => {
+      state.lastUpdatedBooks = action.payload;
+      localStorage.setItem('lastUpdatedBooks', JSON.stringify(action.payload));
+    },
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
     },
@@ -49,6 +56,7 @@ const bookSlice = createSlice({
 });
 
 export const {
+  setLastUpdatedBooks,
   setSearchQuery,
   setGenreFilter,
   setYearFilter,
