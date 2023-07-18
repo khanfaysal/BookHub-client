@@ -8,7 +8,7 @@ import { usePostBookMutation } from '../redux/features/books/bookApi';
 function AddBookForm() {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [postBook, { isLoading, isError }] = usePostBookMutation();
+  const [postBook, { isLoading}] = usePostBookMutation();
   console.log([postBook], "from post book")
 
 
