@@ -37,7 +37,7 @@ function Navbar() {
   };
 
   return (
-    <header className="text-gray-600 body-font bg-[#dddcfb]">
+    <header className="sticky top-0 z-50 text-gray-600 body-font bg-[#dddcfb]">
       <div className="container mx-auto flex flex-wrap items-center justify-between py-5">
         <div className="flex items-center flex-shrink-0 text-gray-800">
           <Link to="/">
