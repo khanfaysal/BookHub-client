@@ -5,6 +5,7 @@ import { useAppDispatch } from './redux/hook'
 import {setLoading, setUser} from './redux/features/user/userSlice'
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './lib/firebase.config';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
 
@@ -23,6 +24,8 @@ function App() {
   }, [dispatch])
   return (
     <div>
+       {/* Toast Container */}
+       <ToastContainer />
       <MainLayout />
     </div>
   )

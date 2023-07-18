@@ -22,7 +22,7 @@ function BookCard({ bookData }: IProps) {
         <p className="text-gray-600 mb-2">{bookData.author}</p>
         <p className="text-gray-600 mb-2">{bookData.genre}</p>
         <p className="text-gray-600">{bookData.publicationDate}</p>
-        <div className="flex justify-between mt-4">
+        {/* <div className="flex justify-between mt-4">
           <button
             onClick={() => handleEdit(bookData.title)}
             style={{ backgroundColor: '#8A89ED', color: '#ffffff' }}
@@ -37,7 +37,7 @@ function BookCard({ bookData }: IProps) {
           >
             Delete
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
