@@ -7,7 +7,7 @@ import userReducer from './features/user/userSlice';
 
 const storedLastUpdatedBooks = JSON.parse(localStorage.getItem('lastUpdatedBooks') || '[]');
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     book: bookReducer,
     user: userReducer,
@@ -26,4 +26,7 @@ export const store = configureStore({
     },
   },
 });
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
 export default store;
