@@ -3,11 +3,7 @@ import { useSingleBookQuery } from '../redux/features/books/bookApi';
 
 function BookDetails() {
   const { id } = useParams();
-  console.log(id, 'id from params');
-
-  const { data: book, error, isLoading } = useSingleBookQuery(id);
-  console.log(book, 'data from use single query');
-  console.log(error, 'error from use single query');
+  const { data: book } = useSingleBookQuery(id);
 
   const handleEdit = (title: string) => {
     console.log('Edit:', title);

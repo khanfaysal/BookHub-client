@@ -10,7 +10,6 @@ import { setUser } from '../redux/features/user/userSlice';
 function Navbar() {
 
   const {user} = useAppSelector((state) => state.user);
-  console.log(user, "user");
 
   const dispatch = useAppDispatch();
 

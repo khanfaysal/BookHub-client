@@ -2,21 +2,41 @@
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { usePostBookMutation } from '../redux/features/books/bookApi';
+
 
 function AddBookForm() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmit = (data: any) => {
-    // Perform form submission logic here
-    console.log(data, "add new book data");
-    
-    // Show success toast notification
-    toast.success('Book successfully created');
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [postBook, { isLoading, isError }] = usePostBookMutation();
+  console.log([postBook], "from post book")
+
+
+  const onSubmit = async (data: any) => {
+    const newData = {
+      ...data,
+      reviews: [data.reviews]
+    }
+
+    try {
+      // Perform form submission logic here
+      console.log(newData, 'add new book data');
+
+      // Call the postBook mutation to create a new book
+      await postBook({data: newData}).unwrap();
+
+      // Show success toast notification
+      toast.success('Book successfully created');
+
+    } catch (error) {
+      console.error('Error creating book:', error);
+      toast.error('Failed to create book');
+    }
   };
 
   return (
     <div className="flex justify-center items-center pt-5">
-       <form className="w-full max-w-lg" onSubmit={handleSubmit(onSubmit)}>
+      <form className="w-full max-w-lg" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="title">
@@ -87,17 +107,19 @@ function AddBookForm() {
               id="reviews"
               placeholder="Enter reviews (separate with commas)"
               {...register('reviews', { required: true })}
+
             ></textarea>
             {errors.reviews && <p className="text-red-500 text-xs italic">Reviews are required</p>}
           </div>
         </div>
-        <div className="flex">
+        <div className="flex justify-end">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             style={{ backgroundColor: '#8A89ED', color: '#ffffff' }}
             type="submit"
+            disabled={isLoading}
           >
-            Add Book
+            {isLoading ? 'Creating...' : 'Add Book'}
           </button>
         </div>
       </form>

@@ -6,7 +6,7 @@ interface IProps {
 }
 
 function BookCard({ bookData }: IProps) {
-  console.log(bookData, "bookdata")
+
   const handleEdit = (title: string) => {
     // Handle edit functionality for the book with the given title
     console.log("Edit:", title);
