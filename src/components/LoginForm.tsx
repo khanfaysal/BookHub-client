@@ -1,31 +1,30 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { createUser } from '../redux/features/user/userSlice';
+import { loginUser } from '../redux/features/user/userSlice';
 import { useAppDispatch } from '../redux/hook';
 
-
-interface SignupFormInputs {
+interface LoginFormInputs {
   email: string;
   password: string;
 }
 
-interface SignupFormProps {
+interface LoginFormProps {
   className?: string;
 }
 
-export function SignpForm({ className }: SignupFormProps) {
+export function LoginForm({ className }: LoginFormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupFormInputs>();
+  } = useForm<LoginFormInputs>();
 
   const [email, setEmail] = useState('');
 
   const dispatch = useAppDispatch();
-  const onSubmit = (data: SignupFormInputs) => {
-    // Handle form submission
-   dispatch(createUser({email: data.email, password: data.password}))
+
+  const onSubmit = (data: LoginFormInputs) => {
+    dispatch(loginUser({email: data.email, password: data.password}));
   };
 
   useEffect(() => {
@@ -60,20 +59,10 @@ export function SignpForm({ className }: SignupFormProps) {
               {...register('password', { required: 'Password is required' })}
             />
             {errors.password && <p>{errors.password.message}</p>}
-            <input
-              id="confirmPassword"
-              type="password"
-              className="input"
-              placeholder="confirm password"
-            />
           </div>
-          <button className="button">Create Account</button>
+          <button className="button">Login</button>
         </div>
       </form>
     </div>
   );
 }
-
-
-
-

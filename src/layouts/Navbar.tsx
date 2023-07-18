@@ -91,8 +91,29 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from "../assets/logo-no-bg.svg";
 import avatarIcon from "../assets/man.png";
+import { useAppDispatch, useAppSelector } from '../redux/hook';
+import { getAuth, signOut } from 'firebase/auth';
+import { setUser } from '../redux/features/user/userSlice';
 
 function Navbar() {
+
+  const {user} = useAppSelector((state) => state.user);
+  console.log(user, "user");
+
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth)
+    .then(()=> {
+      dispatch(setUser(null));
+      localStorage.removeItem('email')
+    })
+    .catch((error) => {
+      console.log('logout error', error)
+    })
+  }
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -141,7 +162,9 @@ function Navbar() {
                   Profile
                 </Link>
               </li>
-              <li className="px-4 py-2 hover:bg-gray-100">
+              {!user?.email && (
+                <>
+                <li className="px-4 py-2 hover:bg-gray-100">
                 <Link to="/login" className="nav-link" onClick={closeMenu}>
                   Login
                 </Link>
@@ -151,11 +174,15 @@ function Navbar() {
                   Signup
                 </Link>
               </li>
-              <li className="px-4 py-2 hover:bg-gray-100">
-                <Link to="/logout" className="nav-link" onClick={closeMenu}>
+                </>
+              )}
+              {user?.email && (
+                <li className="px-4 py-2 hover:bg-gray-100">
+                <button className="nav-link" onClick={handleLogout}>
                   Logout
-                </Link>
+                </button>
               </li>
+              )}
             </ul>
           )}
         </div>
