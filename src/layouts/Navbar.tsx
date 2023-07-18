@@ -51,12 +51,12 @@ function Navbar() {
             <Link to="/books" className="nav-link">
               All Books
             </Link>
-            <Link to="/book-details" className="nav-link">
+            {/* <Link to="/book-details" className="nav-link">
               Book Details
             </Link>
             <Link to="/books-edit" className="nav-link">
               Book Edit
-            </Link>
+            </Link> */}
           </nav>
         </div>
         <div className="relative flex items-center space-x-4 md:space-x-4">
