@@ -8,13 +8,10 @@ function BookDetails() {
   const navigate = useNavigate();
   const { data: book } = useSingleBookQuery(id);
 
-  const [deleteBook, { isLoading }] = useDeleteBookMutation();
+  const [deleteBook, {}] = useDeleteBookMutation();
 
-  const handleEdit = (title: string) => {
-    console.log('Edit:', title);
-  };
 
-  const handleDelete = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleDelete = async () => {
     try {
       if (book?.data?.title) {
         // Call the deleteBook mutation to delete the book

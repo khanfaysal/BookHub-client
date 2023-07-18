@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { loginUser } from '../redux/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hook';
@@ -20,10 +20,9 @@ export function LoginForm({ className }: LoginFormProps) {
     formState: { errors },
   } = useForm<LoginFormInputs>();
 
-  const [email, setEmail] = useState('');
 
   const {user, isLoading} = useAppSelector((state) => state.user)
-  const dispatch = useAppDispatch();
+  const dispatch: any = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,13 +38,6 @@ export function LoginForm({ className }: LoginFormProps) {
     }
   }, [user.email, isLoading, navigate, from])
 
-  useEffect(() => {
-    const storedEmail = localStorage.getItem('email');
-
-    if (storedEmail) {
-      setEmail(storedEmail);
-    }
-  }, []);
 
   return (
     <div className={`grid gap-6 ${className}`}>

@@ -7,16 +7,6 @@ interface IProps {
 
 function BookCard({ bookData }: IProps) {
 
-  const handleEdit = (title: string) => {
-    // Handle edit functionality for the book with the given title
-    console.log("Edit:", title);
-  };
-
-  const handleDelete = (title: string) => {
-    // Handle delete functionality for the book with the given title
-    console.log("Delete:", title);
-  };
-
   return (
     <Link to={`/book-details/${bookData._id}`} className="block">
       <div className="bg-white rounded-lg overflow-hidden shadow-md" style={{ boxShadow: "rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px" }}>
