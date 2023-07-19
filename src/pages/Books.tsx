@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BookCard from '../components/BookCard';
 import Footer from '../layouts/Footer';
 import { useGetBooksQuery } from '../redux/features/books/bookApi';
@@ -7,6 +7,7 @@ import { IBook } from '../types/globalTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { setGenreFilter, setGenres, setSearchQuery, setYearFilter, setYears, setLastUpdatedBooks } from '../redux/features/books/bookSlice';
 import { RootState } from '../redux/store';
+import { useAppSelector } from '../redux/hook';
 
 function Books() {
   const { data } = useGetBooksQuery({});
@@ -16,6 +17,9 @@ function Books() {
   const { genres, years } = useSelector((state: RootState) => state.book);
 
   const dispatch = useDispatch();
+  const {user} = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+  console.log(user.email, 'user email check')
 
   useEffect(() => {
     if (data?.data) {
@@ -46,6 +50,14 @@ function Books() {
     setYearFilterLocal(value);
     dispatch(setYearFilter(value));
   };
+
+  const handleAddBook = () => {
+    if(!user.email) {
+      navigate('/login')
+    } else {
+      navigate('/books-create')
+    }
+  }
 
   const filteredBooks = data?.data.filter((book: {
     publicationDate: string | number | Date; title: string; author: string; genre: string;
@@ -122,9 +134,11 @@ function Books() {
         )}
       </div>
       <Link
+        onClick={handleAddBook}
         to="/books-create"
         style={{ backgroundColor: '#8A89ED', color: '#ffffff' }}
         className="fixed bottom-0 mt-4 right-4 bg-blue-500 text-white py-2 px-4 rounded-md shadow-lg hover:bg-blue-600"
+        
       >
         Add New Book
       </Link>
